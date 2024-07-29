@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title extERC1271Ownable
+ * @title ExtERC1271Ownable
  * @dev Implementation of the ERC1271 standard for signature validation, with extended functionality.
  * This contract allows to validate signatures based on the owner of the extendable contract.
  */
-contract extERC1271Ownable {
+contract ExtERC1271Ownable {
     // Magic value returned by isValidSignature for valid signatures
     bytes4 internal constant ERC1271_MAGIC_VALUE = 0x1626ba7e;
 

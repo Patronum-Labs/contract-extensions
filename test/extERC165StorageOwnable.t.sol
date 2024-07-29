@@ -1,40 +1,43 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "forge-std/Test.sol";
-import "../src/Extendable.sol";
-import "../src/extERC165/extERC165StorageOwnable.sol";
+import {Test} from "forge-std/Test.sol";
+import {Extendable} from "../src/Extendable.sol";
+import {ExtERC165StorageOwnable} from "../src/ExtERC165/ExtERC165StorageOwnable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract extERC165StorageOwnableTest is Test {
+contract ExtERC165StorageOwnableTest is Test {
     Extendable public extendable;
-    extERC165StorageOwnable public erc165Extension;
+    ExtERC165StorageOwnable public erc165Extension;
     address public owner;
     address public user;
 
-    bytes4 constant ERC165_INTERFACE_ID = 0x01ffc9a7;
-    bytes4 constant SUPPORTS_INTERFACE_SELECTOR =
+    bytes4 public constant ERC165_INTERFACE_ID = 0x01ffc9a7;
+    bytes4 public constant SUPPORTS_INTERFACE_SELECTOR =
         bytes4(keccak256("supportsInterface(bytes4)"));
 
     function setUp() public {
         owner = address(this);
         user = address(0x123);
         extendable = new Extendable(owner);
-        erc165Extension = new extERC165StorageOwnable(owner);
+        erc165Extension = new ExtERC165StorageOwnable(owner);
     }
 
-    function testInitialState() public {
+    function testInitialState() public view {
         assertEq(extendable.owner(), owner);
         assertEq(erc165Extension.owner(), owner);
     }
 
     function testBeforeAddingExtension() public {
         vm.expectRevert("No extension found");
-        address(extendable).call(
+        (bool success, bytes memory data) = address(extendable).call(
             abi.encodeWithSelector(
                 SUPPORTS_INTERFACE_SELECTOR,
                 ERC165_INTERFACE_ID
             )
         );
+        success;
+        data;
     }
 
     function testAddingExtensionWithoutSupporting() public {
@@ -154,12 +157,14 @@ contract extERC165StorageOwnableTest is Test {
         extendable.removeExtension(SUPPORTS_INTERFACE_SELECTOR);
 
         vm.expectRevert("No extension found");
-        address(extendable).call(
+        (bool success, bytes memory data) = address(extendable).call(
             abi.encodeWithSelector(
                 SUPPORTS_INTERFACE_SELECTOR,
                 ERC165_INTERFACE_ID
             )
         );
+        success;
+        data;
     }
 
     function testAddingInvalidExtension() public {

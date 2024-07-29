@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Extendable
@@ -62,6 +62,8 @@ contract Extendable is Ownable {
      * This function is called for all messages sent to this contract (except for add and remove extensions).
      * It delegates the call to the appropriate extension based on the function selector.
      */
+    // solhint-disable payable-fallback
+    // solhint-disable no-complex-fallback
     fallback() external {
         // if msg.data.length is less than 4 bytes return
         if (msg.data.length < 4) {
@@ -85,6 +87,7 @@ contract Extendable is Ownable {
         // Handle the result of the extension call
         if (success) {
             // If successful, return the result
+            // solhint-disable no-inline-assembly
             assembly {
                 return(add(result, 32), mload(result))
             }

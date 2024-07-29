@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 
 /**
  * @title ExtERC165StorageOwnable
  * @dev Implementation of the ERC165 standard for interface detection, with extended functionality.
  * This contract allows for an address to manage their own interface support independently.
  */
-contract extERC165StorageOwnable is Ownable, IERC165 {
+contract ExtERC165StorageOwnable is Ownable, IERC165 {
     /// @dev Mapping to store interface support
     mapping(bytes4 => bool) private _supportedInterfaces;
 

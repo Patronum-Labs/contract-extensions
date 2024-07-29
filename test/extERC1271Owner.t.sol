@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "forge-std/Test.sol";
-import "../src/Extendable.sol";
-import "../src/extERC1271/extERC1271Owner.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {Test} from "forge-std/Test.sol";
+import {Extendable} from "../src/Extendable.sol";
+import {ExtERC1271Ownable} from "../src/ExtERC1271/ExtERC1271Ownable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IERC1271 {
     function isValidSignature(
@@ -13,14 +13,14 @@ interface IERC1271 {
     ) external view returns (bytes4 magicValue);
 }
 
-contract extERC1271OwnableTest is Test {
+contract ExtERC1271OwnableTest is Test {
     Extendable public extendable;
-    extERC1271Ownable public erc1271Extension;
+    ExtERC1271Ownable public erc1271Extension;
     address public owner;
     address public user;
     uint256 public ownerPrivateKey;
 
-    bytes4 constant IS_VALID_SIGNATURE_SELECTOR =
+    bytes4 public constant IS_VALID_SIGNATURE_SELECTOR =
         bytes4(keccak256("isValidSignature(bytes32,bytes)"));
 
     // Magic value returned by isValidSignature for valid signatures
@@ -37,7 +37,7 @@ contract extERC1271OwnableTest is Test {
         vm.prank(owner);
         extendable = new Extendable(owner);
 
-        erc1271Extension = new extERC1271Ownable(address(extendable));
+        erc1271Extension = new ExtERC1271Ownable(address(extendable));
 
         vm.prank(owner);
         extendable.addExtension(
@@ -46,7 +46,7 @@ contract extERC1271OwnableTest is Test {
         );
     }
 
-    function testValidSignature() public {
+    function testValidSignature() public view {
         bytes32 messageHash = keccak256("Hello, World!");
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(ownerPrivateKey, messageHash);
         bytes memory signature = abi.encodePacked(r, s, v);
@@ -58,7 +58,7 @@ contract extERC1271OwnableTest is Test {
         assertEq(result, ERC1271_MAGIC_VALUE);
     }
 
-    function testInvalidSignature() public {
+    function testInvalidSignature() public view {
         bytes32 messageHash = keccak256("Hello, World!");
         uint256 randomPrivateKey = 0xB0B;
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(
@@ -74,7 +74,7 @@ contract extERC1271OwnableTest is Test {
         assertEq(result, ERC1271_MAGIC_VALUE_INVALID);
     }
 
-    function testInvalidSignatureLength() public {
+    function testInvalidSignatureLength() public view {
         bytes32 messageHash = keccak256("Hello, World!");
         bytes memory invalidSignature = abi.encodePacked(
             bytes32(0),

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "forge-std/Test.sol";
-import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import "../src/Extendable.sol";
-import "../src/extERC165/extERC165StorageSingleton.sol";
+import {Test} from "forge-std/Test.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {Extendable} from "../src/Extendable.sol";
+import {ExtERC165StorageSingleton} from "../src/ExtERC165/ExtERC165StorageSingleton.sol";
 
 contract ExtERC165StorageSingletonTest is Test {
     ExtERC165StorageSingleton public erc165Extension;
@@ -13,12 +13,12 @@ contract ExtERC165StorageSingletonTest is Test {
     Extendable public extendable3;
     address public owner;
 
-    bytes4 constant ERC165_INTERFACE_ID = type(IERC165).interfaceId;
-    bytes4 constant SUPPORTS_INTERFACE_SELECTOR =
+    bytes4 public constant ERC165_INTERFACE_ID = type(IERC165).interfaceId;
+    bytes4 public constant SUPPORTS_INTERFACE_SELECTOR =
         IERC165.supportsInterface.selector;
-    bytes4 constant ADD_SUPPORT_SELECTOR =
+    bytes4 public constant ADD_SUPPORT_SELECTOR =
         bytes4(keccak256("addSupport(bytes4)"));
-    bytes4 constant REMOVE_SUPPORT_SELECTOR =
+    bytes4 public constant REMOVE_SUPPORT_SELECTOR =
         bytes4(keccak256("removeSupport(bytes4)"));
 
     function setUp() public {
@@ -243,7 +243,7 @@ contract ExtERC165StorageSingletonTest is Test {
         interfaces[1] = bytes4(keccak256("interface2()"));
         interfaces[2] = bytes4(keccak256("interface3()"));
 
-        for (uint i = 0; i < interfaces.length; i++) {
+        for (uint256 i = 0; i < interfaces.length; i++) {
             extendable1.execute(
                 address(erc165Extension),
                 abi.encodeWithSelector(ADD_SUPPORT_SELECTOR, interfaces[i])
@@ -253,7 +253,7 @@ contract ExtERC165StorageSingletonTest is Test {
             );
         }
 
-        for (uint i = 0; i < interfaces.length; i++) {
+        for (uint256 i = 0; i < interfaces.length; i++) {
             extendable1.execute(
                 address(erc165Extension),
                 abi.encodeWithSelector(REMOVE_SUPPORT_SELECTOR, interfaces[i])
