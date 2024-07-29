@@ -1,0 +1,35 @@
+{
+  "name": "@patronumlabs/contract-extensions",
+  "version": "0.1.0",
+  "description": "Set of smart contract extensions that can be used by different smart contract accounts, like Gnosis Safe, UniversalProfiles, etc ..",
+  "author": "PatronumLabs YamenMerhi",
+  "license": "MIT",
+  "keywords": [
+    "extensions",
+    "fallback-handler",
+    "safe-fallback",
+    "lsp17",
+    "contract-extensions"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Patronum-Labs/contract-extensions.git"
+  },
+  "homepage": "https://github.com/Patronum-Labs/contract-extensions#readme",
+  "bugs": {
+    "url": "https://github.com/Patronum-Labs/contract-extensions/issues"
+  },
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "snapshot": "forge snapshot",
+    "prettier:check": "npx prettier -c \"**/*.{md,sol,js,json,yml,yaml}\"",
+    "prettier:fix": "npx prettier -w \"**/*.{md,sol,js,json,yml,yaml}\"",
+    "solhint": "npx solhint \"**/*.sol\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-solidity": "^1.3.1",
+    "solhint": "^5.0.2"
+  }
+}
