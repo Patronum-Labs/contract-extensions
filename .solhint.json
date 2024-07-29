@@ -1,0 +1,11 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "func-visibility": ["warn", { "ignoreConstructors": true }],
+    "private-vars-leading-underscore": "off",
+    "one-contract-per-file": "off",
+    "max-states-count": "off",
+    "gas-custom-errors": "off",
+    "avoid-low-level-calls": "off"
+  }
+}
