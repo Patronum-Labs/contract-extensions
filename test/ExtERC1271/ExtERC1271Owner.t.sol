@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {Test} from "forge-std/Test.sol";
-import {Extendable} from "../src/Extendable.sol";
-import {ExtERC1271Ownable} from "../src/ExtERC1271/ExtERC1271Ownable.sol";
+import {Extendable} from "../../src/Extendable.sol";
+import {ExtERC1271Ownable} from "../../src/ExtERC1271/ExtERC1271Ownable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IERC1271 {
