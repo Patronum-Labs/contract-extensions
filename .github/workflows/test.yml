@@ -4,9 +4,6 @@ name: test
 
 jobs:
   check:
-    strategy:
-      fail-fast: true
-
     name: Foundry project
     runs-on: ubuntu-latest
     steps:
@@ -20,12 +17,7 @@ jobs:
           version: nightly
 
       - name: Run Forge build
-        run: |
-          forge --version
-          forge build --sizes
-        id: build
+        run: forge build
 
       - name: Run Forge tests
-        run: |
-          forge test -vvv
-        id: test
+        run: forge test -vvv
