@@ -5,7 +5,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Extendable
- * @dev This contract represent the simplest version of an extendable contract where functionality
+ * @dev This contract represent a mock version of an extendable contract where functionality
  * can be added or removed dynamically through extensions.
  */
 contract Extendable is Ownable {
@@ -30,7 +30,7 @@ contract Extendable is Ownable {
     function execute(
         address target,
         bytes calldata data
-    ) external returns (bytes memory) {
+    ) external onlyOwner returns (bytes memory) {
         (bool success, bytes memory result) = target.call(data);
         require(success, "Execution failed");
         return result;
