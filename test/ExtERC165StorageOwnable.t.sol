@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {Test} from "forge-std/Test.sol";
-import {Extendable} from "../../src/Extendable.sol";
-import {ExtERC165StorageOwnable} from "../../src/ExtERC165/ExtERC165StorageOwnable.sol";
+import {Extendable} from "../src/Extendable.sol";
+import {ExtERC165StorageOwnable} from "../src/ExtERC165/ExtERC165StorageOwnable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ExtERC165StorageOwnableTest is Test {

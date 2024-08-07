@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import {Test} from "forge-std/Test.sol";
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
-import {Extendable} from "../../src/Extendable.sol";
-import {ExtERC165StorageSingleton} from "../../src/ExtERC165/ExtERC165StorageSingleton.sol";
+import {Extendable} from "../src/Extendable.sol";
+import {ExtERC165StorageSingleton} from "../src/ExtERC165/ExtERC165StorageSingleton.sol";
 
 contract ExtERC165StorageSingletonTest is Test {
     ExtERC165StorageSingleton public erc165Extension;
