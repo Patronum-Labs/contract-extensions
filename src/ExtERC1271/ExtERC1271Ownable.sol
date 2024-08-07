@@ -38,7 +38,7 @@ contract ExtERC1271Ownable {
         (address recoveredAddress, ECDSA.RecoverError returnedError, ) = ECDSA
             .tryRecover(dataHash, signature);
 
-        // if recovering throws an error, return the fail value
+        // If recovering throws an error, return the fail value
         if (returnedError != ECDSA.RecoverError.NoError)
             return ERC1271_MAGIC_VALUE_INVALID;
 
